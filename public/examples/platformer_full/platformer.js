@@ -13,11 +13,11 @@ window.addEventListener("load",function() {
 // the Sprites, Scenes, Input and 2D module. The 2D module
 // includes the `TileLayer` class as well as the `2d` componet.
 var Q = window.Q = Quintus({audioSupported: [ 'wav','mp3','ogg' ], development: true})
-        .include("Sprites, Scenes, Input, 2D, Anim, Touch, UI, TMX, Audio")
+        .include("Sprites, Scenes, Input, 2D, Anim, UI, TMX, Audio")
         // Maximize this game to whatever the size of the browser is
         .setup({ maximize: true })
         // And turn on default input controls and touch input (for UI)
-        .controls(true).touch()
+        .controls(true)
         // Enable sounds.
         .enableSound();
 
@@ -399,18 +399,6 @@ Q.scene("level2",function(stage) {
   stage.add("viewport").follow(Q("Player").first());
 });
 
-Q.scene('intro', function(stage) {
-  Q.stageTMX("intro.tmx", stage);
-
-  var container = stage.insert(new Q.UI.Container({
-    x: 200, y: 700
-  }));
-
-  container.insert(new Q.UI.Text({x: 200, y: 20, label: 'Cool Game'}));
-  stage.add("viewport").centerOn(307,844.5);
-
-});
-
 Q.scene('hud',function(stage) {
   var container = stage.insert(new Q.UI.Container({
     x: 50, y: 0
@@ -448,9 +436,8 @@ Q.loadTMX("level1.tmx, level2.tmx, intro.tmx, collectables.json, doors.json, ene
     Q.animations("fly", EnemyAnimations);
     Q.animations("slime", EnemyAnimations);
     Q.animations("snail", EnemyAnimations);
-    Q.stageScene('intro');
-    // Q.stageScene("level1");
-    // Q.stageScene('hud', 3, Q('Player').first().p);
+    Q.stageScene("level1");
+    Q.stageScene('hud', 3, Q('Player').first().p);
 
 }, {
   progressCallback: function(loaded,total) {
@@ -458,10 +445,6 @@ Q.loadTMX("level1.tmx, level2.tmx, intro.tmx, collectables.json, doors.json, ene
     element.style.width = Math.floor(loaded/total*100) + "%";
     if (loaded == total) {
       document.getElementById("loading").remove();
-
-      setTimeout(function () {
-        loadNextLevel('level1');
-      }, 5000);
     }
   }
 });

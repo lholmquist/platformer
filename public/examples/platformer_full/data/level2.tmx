@@ -108,9 +108,6 @@
  <imagelayer name="Background" width="200" height="20">
   <image source="../images/bg.png"/>
  </imagelayer>
- <imagelayer name="Other" width="200" height="20" visible="0">
-  <image source="../../../../../../../../Pictures/bruno.png"/>
- </imagelayer>
  <layer name="Collision" width="200" height="20">
   <properties>
    <property name="collision" value="true"/>
