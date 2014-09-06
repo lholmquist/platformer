@@ -13,7 +13,7 @@ window.addEventListener("load",function() {
 // the Sprites, Scenes, Input and 2D module. The 2D module
 // includes the `TileLayer` class as well as the `2d` componet.
 var Q = window.Q = Quintus({audioSupported: [ 'wav','mp3','ogg' ], development: true})
-        .include("Sprites, Scenes, Input, 2D, Anim, UI, TMX, Audio")
+        .include("Sprites, Scenes, Input, MyInput, 2D, Anim, UI, TMX, Audio")
         // Maximize this game to whatever the size of the browser is
         .setup({ maximize: true })
         // And turn on default input controls and touch input (for UI)
@@ -42,13 +42,14 @@ Q.Sprite.extend("Player",{
       speed: 300,
       strength: 100,
       score: 0,
+      name: 'Bob',
       type: Q.SPRITE_PLAYER,
       collisionMask: Q.SPRITE_DEFAULT | Q.SPRITE_DOOR | Q.SPRITE_COLLECTABLE
     });
 
     this.p.points = this.p.standingPoints;
 
-    this.add('2d, platformerControls, animation, tween');
+    this.add('2d, multiPlatformerControls, animation, tween');
 
     this.on("bump.top","breakTile");
 
@@ -128,6 +129,14 @@ Q.Sprite.extend("Player",{
       else if(col.tile == 36) { col.obj.setTile(col.tileX,col.tileY, 24); }
     }
     Q.audio.play('coin.mp3');
+  },
+
+  update: function(dt) {
+    this.trigger('prestep',dt);
+    if(this.step) { this.step(dt); }
+    this.trigger('step',dt,this.p.name);
+    this.refreshMatrix();
+    Q._invoke(this.children,"frame",dt);
   },
 
   step: function(dt) {
