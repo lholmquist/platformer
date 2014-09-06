@@ -77,7 +77,7 @@ Quintus.MyInput = function(Q) {
           } else {
             p.vx = -p.speed;
           }
-        } else if(Q.inputs['right']) {
+        } else if(Q.inputs['right'] && Q.inputs['right'].active && Q.inputs['right'].name === p.name) {
           p.direction = 'right';
           if(collision && p.landed > 0) {
             p.vx = -p.speed * collision.normalY;

@@ -463,6 +463,21 @@ function loadNextLevel(level) {
   Q.stageScene('hud', 3, Q('Player').first().p);
 }
 
+Q.addPlayer = function (senderId) {
+  var stage = Q.stage(),
+    player = new Q.Player({name: senderId});
+
+  stage.insert(player);
+};
+
+Q.moveKeydown = function (senderId, action) {
+  Q.inputs[action] = {name: senderId, active: true};
+};
+
+Q.moveKeyup = function (senderId, action) {
+  Q.inputs[action] = {name: senderId, active: false};
+};
+
 // ## Possible Experimentations:
 //
 // The are lots of things to try out here.
