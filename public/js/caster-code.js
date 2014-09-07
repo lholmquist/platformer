@@ -101,7 +101,7 @@ Podium.keyup = function(k) {
 
 function jumpy(k, type, senderId) {
     if (type === 'keydown') {
-        if (k === 39 || k === 80) {
+        if (k === 38 || k === 80) {
             Podium.keydown(k);
             return;
         }
@@ -109,7 +109,7 @@ function jumpy(k, type, senderId) {
         return;
     }
 
-    if (k === 39 || k === 80) {
+    if (k === 38 || k === 80) {
         Podium.keyup(k);
         return;
     }
