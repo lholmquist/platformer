@@ -5,7 +5,7 @@ var GAME = {};
 
     this.onMessage = function (e) {
         console.log('onMessage', e);
-        jumpy(e.data.message, e.data.type);
+        jumpy(e.data.message, e.data.type, e.senderId);
     };
 
     this.onSenderConnected = function (e) {
@@ -99,12 +99,12 @@ Podium.keyup = function(k) {
 };
 
 
-function jumpy(k, type) {
+function jumpy(k, type, senderId) {
   if (type === 'keydown') {
-      Q.moveKeydown();
+      Q.moveKeydown(senderId, k);
       //Podium.keydown(k);
       return;
   }
-  Q.moveKeyup();
+  Q.moveKeyup(senderId, k);
   //Podium.keyup(k);
 }

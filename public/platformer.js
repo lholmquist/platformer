@@ -470,12 +470,18 @@ Q.addPlayer = function (senderId) {
   stage.insert(player);
 };
 
-Q.moveKeydown = function (senderId, action) {
-  Q.inputs[action] = {name: senderId, active: true};
+Q.moveKeydown = function (senderId, keyCode) {
+  if(Q.input.keys[keyCode]) {
+    var actionName = Q.input.keys[keyCode];
+    Q.inputs[actionName] = {name: senderId, active: true};
+  }
 };
 
-Q.moveKeyup = function (senderId, action) {
-  Q.inputs[action] = {name: senderId, active: false};
+Q.moveKeyup = function (senderId, keyCode) {
+  if(Q.input.keys[keyCode]) {
+    var actionName = Q.input.keys[keyCode];
+    Q.inputs[actionName] = {name: senderId, active: false};
+  }
 };
 
 // ## Possible Experimentations:
