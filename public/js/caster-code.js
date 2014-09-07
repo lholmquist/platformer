@@ -101,10 +101,10 @@ Podium.keyup = function(k) {
 
 function jumpy(k, type, senderId) {
   if (type === 'keydown') {
-      Q.moveKeydown(senderId, k);
+      Q.moveKeydown('Bob', k);
       //Podium.keydown(k);
       return;
   }
-  Q.moveKeyup(senderId, k);
+  Q.moveKeyup('Bob', k);
   //Podium.keyup(k);
 }
