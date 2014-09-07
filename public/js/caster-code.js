@@ -100,11 +100,18 @@ Podium.keyup = function(k) {
 
 
 function jumpy(k, type, senderId) {
-  if (type === 'keydown') {
-      Q.moveKeydown('Bob', k);
-      //Podium.keydown(k);
-      return;
-  }
-  Q.moveKeyup('Bob', k);
-  //Podium.keyup(k);
+    if (type === 'keydown') {
+        if (k === 39 || k === 80) {
+            Podium.keydown(k);
+            return;
+        }
+        Q.moveKeydown('Bob', k);
+        return;
+    }
+
+    if (k === 39 || k === 80) {
+        Podium.keyup(k);
+        return;
+    }
+    Q.moveKeyup('Bob', k);
 }
