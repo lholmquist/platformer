@@ -69,7 +69,7 @@ Quintus.MyInput = function(Q) {
           }
         }
 
-        if(Q.inputs['left'] && Q.inputs['left'].active && Q.inputs['left'].name === p.name) {
+        if(Q.inputs[p.name+'left'] && Q.inputs[p.name+'left'].active && Q.inputs[p.name+'left'].name === p.name) {
           p.direction = 'left';
           if(collision && p.landed > 0) {
             p.vx = p.speed * collision.normalY;
@@ -77,7 +77,7 @@ Quintus.MyInput = function(Q) {
           } else {
             p.vx = -p.speed;
           }
-        } else if(Q.inputs['right'] && Q.inputs['right'].active && Q.inputs['right'].name === p.name) {
+        } else if(Q.inputs[p.name+'right'] && Q.inputs[p.name+'right'].active && Q.inputs[p.name+'right'].name === p.name) {
           p.direction = 'right';
           if(collision && p.landed > 0) {
             p.vx = -p.speed * collision.normalY;

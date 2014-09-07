@@ -31,7 +31,6 @@ Q.SPRITE_DOOR = 8;
 Q.Sprite.extend("Player",{
 
   init: function(p) {
-
     this._super(p, {
       sheet: "player",  // Setting a sprite sheet sets sprite width and height
       sprite: "player",
@@ -42,7 +41,7 @@ Q.Sprite.extend("Player",{
       speed: 300,
       strength: 100,
       score: 0,
-      name: 'Bob',
+      name: Q.INITIAL_SENDER_ID,
       type: Q.SPRITE_PLAYER,
       collisionMask: Q.SPRITE_DEFAULT | Q.SPRITE_DOOR | Q.SPRITE_COLLECTABLE
     });
@@ -58,7 +57,7 @@ Q.Sprite.extend("Player",{
     this.on("jump");
     this.on("jumped");
 
-    Q.input.on("down",this,"checkDoor");
+    Q.input.on(p.name+"down",this,"checkDoor");
   },
 
   jump: function(obj) {
@@ -197,7 +196,7 @@ Q.Sprite.extend("Player",{
     if(!processed) {
       this.p.gravity = 1;
 
-      if(Q.inputs['down'] && !this.p.door) {
+      if((Q.inputs[this.p.name+'down'] && Q.inputs[p.name+'down'].active) && !this.p.door) {
         this.p.ignoreControls = true;
         this.play("duck_" + this.p.direction);
         if(this.p.landed > 0) {
@@ -465,7 +464,7 @@ function loadNextLevel(level) {
 
 Q.addPlayer = function (senderId) {
   var stage = Q.stage(),
-    player = new Q.Player({name: senderId});
+    player = new Q.Player({name: senderId, x: Q('Player').first().p.x});
 
   stage.insert(player);
 };
@@ -473,14 +472,14 @@ Q.addPlayer = function (senderId) {
 Q.moveKeydown = function (senderId, keyCode) {
   if(Q.input.keys[keyCode]) {
     var actionName = Q.input.keys[keyCode];
-    Q.inputs[actionName] = {name: senderId, active: true};
+    Q.inputs[senderId + actionName] = {name: senderId, active: true};
   }
 };
 
 Q.moveKeyup = function (senderId, keyCode) {
   if(Q.input.keys[keyCode]) {
     var actionName = Q.input.keys[keyCode];
-    Q.inputs[actionName] = {name: senderId, active: false};
+    Q.inputs[senderId + actionName] = {name: senderId, active: false};
   }
 };
 

@@ -10,6 +10,13 @@ var GAME = {};
 
     this.onSenderConnected = function (e) {
         console.log('onSenderConnected', e);
+        console.log(Q.stage());
+        if (!Q.stage()) {
+            Q.INITIAL_SENDER_ID = e.senderId;
+            return;
+        }
+
+        Q.addPlayer(e.senderId);
     };
 
     this.onSenderDisconnected = function (e) {
@@ -101,17 +108,17 @@ Podium.keyup = function(k) {
 
 function jumpy(k, type, senderId) {
     if (type === 'keydown') {
-        if (k === 38 || k === 80) {
+        if (k === 38) {
             Podium.keydown(k);
             return;
         }
-        Q.moveKeydown('Bob', k);
+        Q.moveKeydown(senderId, k);
         return;
     }
 
-    if (k === 38 || k === 80) {
+    if (k === 38) {
         Podium.keyup(k);
         return;
     }
-    Q.moveKeyup('Bob', k);
+    Q.moveKeyup(senderId, k);
 }
