@@ -57,7 +57,7 @@ Q.Sprite.extend("Player",{
     this.on("jump");
     this.on("jumped");
 
-    Q.input.on(p.name+"down",this,"checkDoor");
+    //Q.input.on("down",this,"checkDoor");
   },
 
   jump: function(obj) {
@@ -162,7 +162,7 @@ Q.Sprite.extend("Player",{
         this.p.vy = -this.p.speed;
         this.p.x = this.p.ladderX;
         this.play("climb");
-      } else if(Q.inputs['down']) {
+      } else if(Q.inputs[this.p.name+'down'] && Q.inputs[this.p.name+'down'].active) {
         this.p.vy = this.p.speed;
         this.p.x = this.p.ladderX;
         this.play("climb");
@@ -174,7 +174,7 @@ Q.Sprite.extend("Player",{
 
     if(!processed && this.p.door) {
       this.p.gravity = 1;
-      if(this.p.checkDoor && this.p.landed > 0) {
+      if((Q.inputs[this.p.name+'down'] && Q.inputs[this.p.name+'down'].active) && this.p.landed > 0) {
         // Enter door.
         this.p.y = this.p.door.p.y;
         this.p.x = this.p.door.p.x;
@@ -196,7 +196,7 @@ Q.Sprite.extend("Player",{
     if(!processed) {
       this.p.gravity = 1;
 
-      if((Q.inputs[this.p.name+'down'] && Q.inputs[p.name+'down'].active) && !this.p.door) {
+      if((Q.inputs[this.p.name+'down'] && Q.inputs[this.p.name+'down'].active) && !this.p.door) {
         this.p.ignoreControls = true;
         this.play("duck_" + this.p.direction);
         if(this.p.landed > 0) {
