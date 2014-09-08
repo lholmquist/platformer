@@ -49,7 +49,7 @@ Quintus.MyInput = function(Q) {
         var collision = null;
 
         // Follow along the current slope, if possible.
-        if(p.collisions !== undefined && p.collisions.length > 0 && (Q.inputs['left'] || Q.inputs['right'] || p.landed > 0)) {
+        if(p.collisions !== undefined && p.collisions.length > 0 && ((Q.inputs[p.name+'left'] && Q.inputs[p.name+'left'].active) || (Q.inputs[p.name+'right'] && Q.inputs[p.name+'right'].active) || p.landed > 0)) {
           if(p.collisions.length === 1) {
             collision = p.collisions[0];
           } else {
@@ -92,16 +92,16 @@ Quintus.MyInput = function(Q) {
           }
         }
 
-        if(p.landed > 0 && (Q.inputs['up'] || Q.inputs['action']) && !p.jumping) {
+        if(p.landed > 0 && ((Q.inputs[p.name+'up'] && Q.inputs[p.name+'up'].active) || Q.inputs['action']) && !p.jumping) {
           p.vy = p.jumpSpeed;
           p.landed = -dt;
           p.jumping = true;
-        } else if(Q.inputs['up'] || Q.inputs['action']) {
+        } else if((Q.inputs[p.name+'up'] && Q.inputs[p.name+'up'].active) || Q.inputs['action']) {
           this.entity.trigger('jump', this.entity);
           p.jumping = true;
         }
 
-        if(p.jumping && !(Q.inputs['up'] || Q.inputs['action'])) {
+        if(p.jumping && !((Q.inputs[p.name+'up'] && Q.inputs[p.name+'up'].active) || Q.inputs['action'])) {
           p.jumping = false;
           this.entity.trigger('jumped', this.entity);
           if(p.vy < p.jumpSpeed / 3) {

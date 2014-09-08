@@ -21,6 +21,13 @@ var GAME = {};
 
     this.onSenderDisconnected = function (e) {
         console.log('onSenderDisconnected', e);
+        var player = Q('Player').items.filter(function (item) {
+            return item.p.name === e.senderId;
+        });
+
+        if (player.length) {
+            player[0].destroy();
+        }
     };
 
 
@@ -108,17 +115,17 @@ Podium.keyup = function(k) {
 
 function jumpy(k, type, senderId) {
     if (type === 'keydown') {
-        if (k === 38) {
-            Podium.keydown(k);
-            return;
-        }
+        // if (k === 38) {
+        //     Podium.keydown(k);
+        //     return;
+        // }
         Q.moveKeydown(senderId, k);
         return;
     }
 
-    if (k === 38) {
-        Podium.keyup(k);
-        return;
-    }
+    // if (k === 38) {
+    //     Podium.keyup(k);
+    //     return;
+    // }
     Q.moveKeyup(senderId, k);
 }

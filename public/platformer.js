@@ -158,7 +158,7 @@ Q.Sprite.extend("Player",{
     if(this.p.onLadder) {
       this.p.gravity = 0;
 
-      if(Q.inputs['up']) {
+      if(Q.inputs[this.p.name+'up'] && Q.inputs[this.p.name+'up'].active) {
         this.p.vy = -this.p.speed;
         this.p.x = this.p.ladderX;
         this.play("climb");
