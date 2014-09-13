@@ -1,3 +1,10 @@
-The OpenShift `nodejs` cartridge documentation can be found at:
+Receiver app for my jQcon talk
 
-http://openshift.github.io/documentation/oo_cartridge_guide.html#nodejs
+
+### get started
+
+
+* npm install
+* ./bin/www
+
+this will start the receiver application
